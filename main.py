@@ -1,13 +1,26 @@
 # -*- coding: utf-8 -*-
 import random
 
-test_list_1 = [6, 31415926535897932384626433832795, 1, 3, 10, 3, 5]
-test_list_2 = [8, 1, 2, 100, 12303479849857341718340192371, 3084193741082937, 3084193741082938, 111, 200]
+# Increasing sort
 
-# Quick sort: pivot ngẫu nhiên
-def quick_sort(arr):
+# Test case
+test_case = [
+    [6, 31415926535897932384626433832795, 1, 3, 10, 3, 5],
+    [8, 1, 2, 100, 12303479849857341718340192371, 3084193741082937, 3084193741082938, 111, 200],
+    [10097, 32533, 76520, 13586, 34673, 54876, 80959, 9117,  39292, 74945],
+]
+
+# Swap
+def swap(arr, index1, index2):
+    temp = arr[index1]
+    arr[index1] = arr[index2]
+    arr[index2] = temp
+    return arr
+
+# Quick sort: n^2 (random pivot)
+def quickSort(arr):
     if (len(arr) < 2): return arr
-    pivot = random.choice(arr)
+    pivot = random.choice(arr) # random pivot
     left_arr = []
     right_arr = []
     result_arr = []
@@ -18,6 +31,70 @@ def quick_sort(arr):
             right_arr.append(val)
         else:
             result_arr.append(val)
-    return quick_sort(left_arr) + result_arr + quick_sort(right_arr)
+    return quickSort(left_arr) + result_arr + quickSort(right_arr)
 
-print(quick_sort(test_list_2))
+# Insertion sort: n^2
+def insertionSort(arr):
+    for index, value in enumerate(arr):
+        last = value
+        j = index
+        while j > 0 and arr[j-1] > last:
+            arr[j] = arr[j-1]
+            arr[j-1] = last
+            j -= 1
+    return arr
+
+# Selection sort: n^2
+def selectionSort(arr):
+    for index in range(len(arr)):
+        min = index
+        for index2 in range(index + 1, len(arr)):
+            if arr[index2] < arr[min]: min = index2
+        arr = swap(arr, index, min)
+    return arr
+
+# Bubble sort: n^2
+def bubbleSort(arr):
+    for index in range(len(arr) - 1, 0, -1):
+        for index2 in range(1, index + 1):
+            if arr[index2 - 1] > arr[index2]: arr = swap(arr, index2 - 1, index2)
+    return arr
+
+# Merge sort: nlogn
+def mergeSort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left = arr[:mid]
+        right = arr[mid:]
+
+        mergeSort(left)
+        mergeSort(right)
+        
+        i = 0
+        j = 0
+        k = 0
+        
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+              arr[k] = left[i]
+              i += 1
+            else:
+                arr[k] = right[j]
+                j += 1
+            k += 1
+
+        while i < len(left):
+            arr[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            arr[k]=right[j]
+            j += 1
+            k += 1
+    return arr
+
+# Heap sort: nlogn
+
+# Execution
+# print(merge_sort(test_case[2]))
