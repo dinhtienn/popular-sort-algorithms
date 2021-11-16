@@ -17,23 +17,8 @@ def swap(arr, index1, index2):
     arr[index2] = temp
     return arr
 
-# Quick sort: n^2 (random pivot)
-def quickSort(arr):
-    if (len(arr) < 2): return arr
-    pivot = random.choice(arr) # random pivot
-    left_arr = []
-    right_arr = []
-    result_arr = []
-    for val in arr:
-        if val < pivot:
-            left_arr.append(val)
-        elif val > pivot:
-            right_arr.append(val)
-        else:
-            result_arr.append(val)
-    return quickSort(left_arr) + result_arr + quickSort(right_arr)
-
-# Insertion sort: n^2
+# Thuật toán đơn giản (Độ phức tạp thuật toán - O(n^2)):
+# Insertion sort: O(n^2)
 def insertionSort(arr):
     for index, value in enumerate(arr):
         last = value
@@ -44,7 +29,7 @@ def insertionSort(arr):
             j -= 1
     return arr
 
-# Selection sort: n^2
+# Selection sort: O(n^2)
 def selectionSort(arr):
     for index in range(len(arr)):
         min = index
@@ -53,14 +38,15 @@ def selectionSort(arr):
         arr = swap(arr, index, min)
     return arr
 
-# Bubble sort: n^2
+# Bubble sort: O(n^2)
 def bubbleSort(arr):
     for index in range(len(arr) - 1, 0, -1):
         for index2 in range(1, index + 1):
             if arr[index2 - 1] > arr[index2]: arr = swap(arr, index2 - 1, index2)
     return arr
 
-# Merge sort: nlogn
+# Thuật toán hiệu quả (Độ phức tạp thuật toán - O(nlogn)):
+# Merge sort: O(nlogn)
 def mergeSort(arr):
     if len(arr) > 1:
         mid = len(arr) // 2
@@ -94,7 +80,30 @@ def mergeSort(arr):
             k += 1
     return arr
 
-# Heap sort: nlogn
+# Quick sort: O(n^2) (random pivot)
+def quickSort(arr):
+    if (len(arr) < 2): return arr
+    pivot = random.choice(arr) # random pivot
+    left_arr = []
+    right_arr = []
+    result_arr = []
+    for val in arr:
+        if val < pivot:
+            left_arr.append(val)
+        elif val > pivot:
+            right_arr.append(val)
+        else:
+            result_arr.append(val)
+    return quickSort(left_arr) + result_arr + quickSort(right_arr)
+
+# Heap sort: O(nlogn)
+
+# Thuật toán đăc biệt (Độ phức tạp thuật toán - O(n)):
+    # Sắp xếp đếm (Counting Sort)
+    # Sắp xếp phân cụm (Bucket Sort)
+    # Sắp xếp cơ số (Radix Sort)
+# Xử lý các tập dữ liệu lớn:
+    # Sắp xếp ngoài (External sort)
 
 # Execution
-# print(merge_sort(test_case[2]))
+print(quickSort(test_case[0]))
